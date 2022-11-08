@@ -84,13 +84,6 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       const userData = await response.json();
       setUser(userData);
 
-      // no error - optimisticly set the modified attribute on the user
-      // const u = { ...user };
-      // u.attributes = u.attributes || {};
-      // u.attributes.properties = { ...u.attributes.properties };
-      // u.attributes.properties[key] = value;
-      // setUser(u);
-
       // reload the user, just to make sure we have the correct data
       loadUser();
     } catch (error) {

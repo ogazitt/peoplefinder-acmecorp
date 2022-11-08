@@ -53,7 +53,6 @@ exports.getUsers = async (req) => {
     let request = new GetObjectsRequest();
     request.setParam(objectTypeIdentifier);
 
-
     let users = [];
 
     while (true) {
