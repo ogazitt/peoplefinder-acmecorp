@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 const UserCard = withRouter(({ user, history }) => {
   const id = user.id;
-  const name = user.display_name;
+  const name = user.displayName;
 
   return (
     <Card onClick={() => history.push(`/people/${id}`)}
@@ -13,10 +13,10 @@ const UserCard = withRouter(({ user, history }) => {
         minWidth: 200,
         margin: 10
       }}>
-      <Card.Img src={user.picture} alt="picture" />
+      <Card.Img src={user.properties.picture} alt="picture" />
       <Card.Body>
         <Card.Title as="h5">{name}</Card.Title>
-        <Card.Text>{user.email}</Card.Text>
+        <Card.Text>{user.properties.email}</Card.Text>
       </Card.Body>
     </Card>
   )

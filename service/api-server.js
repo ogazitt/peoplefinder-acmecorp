@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const bodyParser = require('body-parser');
 const { join } = require("path");
 
 // establish whether we are hosted in Netlify
@@ -14,7 +13,7 @@ const {
   port,
   authorizerServiceUrl,
   policyRoot,
-  policyId,
+  policyInstanceName,
   domain,
   audience,
   tenantId,
@@ -30,7 +29,8 @@ app.use(helmet({
   contentSecurityPolicy: false
 }));
 app.use(cors({ origin: true }));
-app.use(bodyParser.json());
+app.use(express.json());
+app.set('etag', false)
 
 // register the api handlers
 const users = require('./src/users-api');
@@ -41,7 +41,7 @@ app.use(routerBasePath, router);
 
 // log some config values
 console.log(`Authorizer: ${authorizerServiceUrl}`);
-console.log(`Policy ID: ${policyId}`);
+console.log(`Policy instance name: ${policyInstanceName}`);
 console.log(`Policy root: ${policyRoot}`);
 
 if (tenantId) {

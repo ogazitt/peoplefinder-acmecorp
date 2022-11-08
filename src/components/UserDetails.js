@@ -15,7 +15,7 @@ const { apiOrigin = "http://localhost:3001" } = config;
 // display state map resource path
 const resourcePath = '/api/users/__id';
 
-const attrKey = 'attributes';
+const attrKey = 'properties';
 
 
 const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
@@ -32,9 +32,9 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
   const [loading, setLoading] = useState(true)
 
   // retrieve the manager name
-  const managerId = user && user[attrKey] && user[attrKey].properties.manager;
+  const managerId = user && user[attrKey] && user[attrKey].manager;
   const manager = users && managerId && users.find(u => u.id === managerId);
-  const managerName = manager && manager.display_name;
+  const managerName = manager && manager.displayName;
 
   useEffect(() => {
     const reloadDisplayStateMap = async () => {
@@ -49,9 +49,9 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
   }, [reload, user.id])
 
   useEffect(() => {
-    setPhone(user[attrKey].properties.phone || '');
-    setDepartment(user[attrKey].properties.department || '');
-    setTitle(user[attrKey].properties.title || '');
+    setPhone(user[attrKey].phone || '');
+    setDepartment(user[attrKey].department || '');
+    setTitle(user[attrKey].title || '');
   }, [user])
 
   const update = async (method, key, value) => {
@@ -59,7 +59,9 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       const token = dexAuth?.userData?.id_token;
 
       // prepare the payload
-      const body = { key, value };
+      let body = { ...user };
+      body[attrKey] = { ...user[attrKey] }
+      body[attrKey][key] = value;
       const headers = {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -79,14 +81,15 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
         return;
       }
 
-      //const userData = await response.json();
+      const userData = await response.json();
+      setUser(userData);
 
       // no error - optimisticly set the modified attribute on the user
-      const u = { ...user };
-      u.attributes = u.attributes || {};
-      u.attributes.properties = { ...u.attributes.properties };
-      u.attributes.properties[key] = value;
-      setUser(u);
+      // const u = { ...user };
+      // u.attributes = u.attributes || {};
+      // u.attributes.properties = { ...u.attributes.properties };
+      // u.attributes.properties[key] = value;
+      // setUser(u);
 
       // reload the user, just to make sure we have the correct data
       loadUser();
@@ -139,9 +142,9 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
   const hide = () => {
     // reset state
     setError(null);
-    setPhone(user[attrKey].properties.phone);
-    setDepartment(user[attrKey].properties.department);
-    setTitle(user[attrKey].properties.title);
+    setPhone(user[attrKey].phone);
+    setDepartment(user[attrKey].department);
+    setTitle(user[attrKey].title);
   };
 
   if (!getDisplayState('GET', resourcePath).visible) {
@@ -161,17 +164,17 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       <Row className="align-items-center profile-header mb-5 text-center text-md-left">
         <Col md={2}>
           <img
-            src={user.picture}
+            src={user[attrKey].picture}
             alt="Profile"
             className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
           />
         </Col>
         <Col md={5}>
-          <h2>{user.display_name}</h2>
+          <h2>{user.displayName}</h2>
           <p className="lead text-muted">{user.email}</p>
           <h4>Manager: &nbsp;
-            <Link to={`/people/${user[attrKey].properties.manager}`}>
-              {managerName || user[attrKey].properties.manager}
+            <Link to={`/people/${user[attrKey].manager}`}>
+              {managerName || user[attrKey].manager}
             </Link>
           </h4>
 
@@ -193,7 +196,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
             </InputGroup> :
             <div style={{ display: 'flex' }}>
               <h4>Phone: &nbsp;&nbsp;</h4>
-              <p className="lead text-muted">{user[attrKey].properties.phone}</p>
+              <p className="lead text-muted">{user[attrKey].phone}</p>
             </div>
           }
         </Col>
@@ -264,7 +267,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
               <h4>Department:</h4>
             </Col>
             <Col md>
-              <p className="lead text-muted">{user[attrKey].properties.department}</p>
+              <p className="lead text-muted">{user[attrKey].department}</p>
             </Col>
           </Row>
           <Row>
@@ -272,7 +275,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
               <h4>Title:</h4>
             </Col>
             <Col md>
-              <p className="lead text-muted">{user[attrKey].properties.title}</p>
+              <p className="lead text-muted">{user[attrKey].title}</p>
             </Col>
           </Row>
         </div>

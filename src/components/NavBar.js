@@ -37,21 +37,21 @@ const NavBar = () => {
   let currentUser = user;
   if (identity && users) {
     const u = users.find(u => u.id === identity);
-    currentUser = { ...u, name: u.display_name };
+    currentUser = { ...u, name: u.displayName };
   }
 
   // If this is the demo version of the app, we are assured that the users exist in the IDP
   // and we'll find it based on the current user's email
   if (users && currentUser?.profile?.email) {
-    const u = users.find(u => u.email === currentUser.profile.email)
-    currentUser = { ...u, name: u.display_name };
+    const u = users.find(u => u.properties.email === currentUser.profile.email)
+    currentUser = { ...u, name: u.displayName };
   }
 
   // look up the user's display name for each of the hardcoded users
   if (users) {
     for (const id of Object.keys(identities)) {
       const u = users.find(u => u.id === id);
-      identities[id] = u && u.display_name;
+      identities[id] = u && u.displayName;
     }
   }
 
@@ -122,11 +122,11 @@ const NavBar = () => {
                   </Button>
                 </Nav.Item>
               )}
-              {isAuthenticated && currentUser.picture && (
+              {isAuthenticated && currentUser?.properties?.picture && (
                 <Dropdown as={Nav.Item}>
                   <Dropdown.Toggle as={Nav.Link} id="profileDropDown">
                     <img
-                      src={currentUser.picture}
+                      src={currentUser.properties.picture}
                       alt="Profile"
                       className="nav-user-profile rounded-circle"
                       width="50"

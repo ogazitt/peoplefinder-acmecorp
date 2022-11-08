@@ -34,7 +34,7 @@ Copy `.env.example` into a new file in the same folder called `.env`, and replac
 ```bash
 
 REACT_APP_POLICY_ROOT={The policy root (the first component of the policy module name) - defaults to `peoplefinder`}
-POLICY_ID={Your Policy ID - find in the Aserto console in the "Policy settings" section}
+POLICY_INSTANCE_NAME={Your Policy name - find in the Aserto console in the "Policy settings" section}
 
 # To use the Aserto hosted authorizer, provide an API key and Tenant ID
 AUTHORIZER_API_KEY={Your Authorizer API Key - find in the Aserto console in the "Policy settings" section}
@@ -74,7 +74,7 @@ yarn run build
 
 ### Deploy to Netlify
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aserto-demo/peoplefinder-acmecorp#REACT_APP_POLICY_ROOT=peoplefinder&TENANT_ID=your-Aserto-tenant-ID&POLICY_ID=your-Aserto-policy-ID&AUTHORIZER_API_KEY=your-Aserto-authorizer-API-key&REACT_APP_NETLIFY=NETLIFY&REACT_APP_DEMO=true&REACT_APP_DEX_DOMAIN=acmecorp.demo.aserto.com&REACT_APP_DEX_CLIENT_ID=acmecorp-app&REACT_APP_DEX_AUDIENCE=acmecorp-app)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aserto-demo/peoplefinder-acmecorp#REACT_APP_POLICY_ROOT=peoplefinder&TENANT_ID=your-Aserto-tenant-ID&POLICY_INSTANCE_NAME=your-Aserto-policy-instance-name&AUTHORIZER_API_KEY=your-Aserto-authorizer-API-key&REACT_APP_NETLIFY=NETLIFY&REACT_APP_DEMO=true&REACT_APP_DEX_DOMAIN=acmecorp.demo.aserto.com&REACT_APP_DEX_CLIENT_ID=acmecorp-app&REACT_APP_DEX_AUDIENCE=acmecorp-app)
 
 The project is ready to deploy to Netlify. Just click the "Deploy to Netlify" badge on the repo, or fork the project and set up a Netlify deployment for it.
 
@@ -85,7 +85,7 @@ Also, in order to run properly, the environment variables found in `.env.example
 * REACT_APP_POLICY_ROOT={policy root (the first component of the policy module name) - e.g. `peoplefinder`}
 * AUTHORIZER_API_KEY={Your Authorizer API Key (find in the Aserto console in the "Policy settings" section)}
 * TENANT_ID={Your Tenant ID (find in the Aserto console in the "Policy settings" section)}
-* POLICY_ID={Your Policy ID (find in the Aserto console in the "Policy settings" section)}
+* POLICY_INSTANCE_NAME={Your Policy name (find in the Aserto console in the "Policy settings" section)}
 * REACT_APP_NETLIFY=NETLIFY
 * REACT_APP_DEX_AUDIENCE=acmecorp-app
 * REACT_APP_DEX_CLIENT_ID=acmecorp-app
