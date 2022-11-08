@@ -1,12 +1,14 @@
 // workaround: require config-netlify to make sure it gets added to the netlify bundle
-require('dotenv').config()
+var env = require('dotenv').config()
+require('dotenv-expand').expand(env)
 
 const appPort = process.env.SERVER_PORT || 3000;
+const instanceName =  process.env.POLICY_INSTANCE_NAME;
 
 module.exports = {
   policyRoot: process.env.REACT_APP_POLICY_ROOT || 'peoplefinder',
-  instanceName: process.env.POLICY_INSTANCE_NAME,
-  instanceLabel: process.env.POLICY_INSTANCE_LABEL,
+  instanceName,
+  instanceLabel: process.env.POLICY_INSTANCE_LABEL || instanceName,
   authorizerServiceUrl: process.env.AUTHORIZER_SERVICE_URL || `authorizer.prod.aserto.com:8443`,
   authorizerApiKey: process.env.AUTHORIZER_API_KEY,
   authorizerCertCAFile: process.env.AUTHORIZER_CERT_CA_FILE,

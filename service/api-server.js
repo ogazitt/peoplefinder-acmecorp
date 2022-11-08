@@ -1,4 +1,6 @@
-require('dotenv').config()
+var env = require('dotenv').config()
+require('dotenv-expand').expand(env)
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -30,7 +32,6 @@ app.use(helmet({
 }));
 app.use(cors({ origin: true }));
 app.use(express.json());
-app.set('etag', false)
 
 // register the api handlers
 const users = require('./src/users-api');
