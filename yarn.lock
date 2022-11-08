@@ -18,9 +18,10 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@aserto/aserto-node@git+ssh://git@github.com/aserto-dev/aserto-node":
-  version "0.20.11"
-  resolved "git+ssh://git@github.com/aserto-dev/aserto-node#719435dc20662fa1fbb7ad4e028ffeebfd672bfa"
+"@aserto/aserto-node@^0.20.12":
+  version "0.20.12"
+  resolved "https://registry.yarnpkg.com/@aserto/aserto-node/-/aserto-node-0.20.12.tgz#5b5d0b3e8da69679657348a3b439e66d4dbe8df9"
+  integrity sha512-ehYo8UohFkgXRbq9XJc4N+R9LTAHa5LHKwrUMmCxP/PvNtFASpeuqqgXx6njEqSACWJw+9gtgaZbjePmHuTJ2g==
   dependencies:
     "@aserto/node-authorizer" "https://github.com/aserto-dev/node-authorizer.git"
     "@aserto/node-directory" "https://github.com/aserto-dev/node-directory-v2"
@@ -42,9 +43,9 @@
   resolved "https://registry.yarnpkg.com/@aserto/aserto-spa-js/-/aserto-spa-js-0.1.28.tgz#748fb6846b05bf1bc20407d326b7eb26f7dfb2b7"
   integrity sha512-1/dCpzlkdXaCI0ygDNLIx30VbQkeFJoZ8HIroB5x8wNXe3vL/a9e8qTkeRX1BVCJgDqIPmCDVwT8BsL0yyMxgA==
 
-"@aserto/node-authorizer@https://github.com/aserto-dev/node-authorizer.git":
+"@aserto/node-authorizer@git+https://github.com/aserto-dev/node-authorizer.git":
   version "0.0.7"
-  resolved "https://github.com/aserto-dev/node-authorizer.git#43b11b9b4be904463876adfb6c266f24615ed3d8"
+  resolved "git+https://github.com/aserto-dev/node-authorizer.git#43b11b9b4be904463876adfb6c266f24615ed3d8"
   dependencies:
     "@grpc/grpc-js" "^1.6.11"
     "@types/google-protobuf" "^3.15.6"
@@ -62,9 +63,9 @@
     google-protobuf "^3.21.0"
     grpc-tools "^1.11.2"
 
-"@aserto/node-directory@https://github.com/aserto-dev/node-directory-v2":
+"@aserto/node-directory@git+https://github.com/aserto-dev/node-directory-v2.git":
   version "0.0.7"
-  resolved "https://github.com/aserto-dev/node-directory-v2#ccb6571021223c5725a1c050f438de17bf5b4a6f"
+  resolved "git+https://github.com/aserto-dev/node-directory-v2.git#ccb6571021223c5725a1c050f438de17bf5b4a6f"
   dependencies:
     "@grpc/grpc-js" "^1.6.11"
     "@types/google-protobuf" "^3.15.6"

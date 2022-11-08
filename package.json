@@ -3,7 +3,7 @@
   "version": "0.1.22",
   "private": true,
   "dependencies": {
-    "@aserto/aserto-node": "git+ssh://git@github.com/aserto-dev/aserto-node",
+    "@aserto/aserto-node": "^0.20.12",
     "@aserto/aserto-react": "0.1.52",
     "@aserto/node-directory": "^0.0.9",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
