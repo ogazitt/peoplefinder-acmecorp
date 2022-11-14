@@ -4,9 +4,9 @@
 
 [Aserto](https://aserto.com) is an authorization framework that provides fine-grained authorization for API's and applications. Aserto can be used in the service / API to make allow/deny decisions based on an authorization policy.
 
-This sample demonstrates the integration of the [Aserto Express middleware](https://github.com/aserto-dev/express-jwt-aserto) with an API, and the [Aserto React SDK](https://github.com/aserto-dev/aserto-react) into a React application created using [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
+This sample demonstrates the integration of the [Aserto Express middleware](https://github.com/aserto-dev/aserto-node) with an API, and the [Aserto React SDK](https://github.com/aserto-dev/aserto-react) into a React application created using [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
 
-The sample shows how to secure an API (defined in `service/users-api.js`) using the [Aserto Express middleware](https://github.com/aserto-dev/express-jwt-aserto). Refer to the Express middleware documentation for a deeper overview of how to use it.
+The sample shows how to secure an API (defined in `service/users-api.js`) using the [Aserto Express middleware](https://github.com/aserto-dev/aserto-node). Refer to the Express middleware documentation for a deeper overview of how to use it.
 
 The Aserto React SDK helps solve a related problem: what UI elements should be rendered, and in what state, based on the logged-in user and the authorization policy they are subject to.
 
@@ -34,15 +34,22 @@ Copy `.env.example` into a new file in the same folder called `.env`, and replac
 ```bash
 
 REACT_APP_POLICY_ROOT={The policy root (the first component of the policy module name) - defaults to `peoplefinder`}
-POLICY_INSTANCE_NAME={Your Policy name - find in the Aserto console in the "Policy settings" section}
+POLICY_INSTANCE_NAME={Your Policy name}
 
 # To use the Aserto hosted authorizer, provide an API key and Tenant ID
-AUTHORIZER_API_KEY={Your Authorizer API Key - find in the Aserto console in the "Policy settings" section}
-TENANT_ID={Your Tenant ID - find in the Aserto console in the "Policy configuration" section}
+AUTHORIZER_API_KEY={Your Authorizer API Key - find in the Aserto console in the "Policy settings" section for this policy}
+TENANT_ID={Your Tenant ID - find in the Aserto console in the "Policy settings" section for this policy}
 
 # To use a local authorizer, instead of the two variables above, provide the service URL and cert file
-AUTHORIZER_SERVICE_URL=https://localhost:8383
-AUTHORIZER_CERT_FILE=$HOME/.config/aserto/aserto-one/certs/gateway-ca.crt
+AUTHORIZER_SERVICE_URL=localhost:8282
+DIRECTORY_SERVICE_URL=localhost:9292
+
+# For Topaz:
+AUTHORIZER_CERT_CA_FILE=$HOME/.config/topaz/certs/grpc-ca.crt
+DIRECTORY_CERT_CA_FILE==$HOME/.config/topaz/certs/grpc-ca.crt
+# For the Aserto edge authorizer:
+AUTHORIZER_CERT_CA_FILE=$HOME/.config/aserto/aserto-one/certs/grpc-ca.crt
+DIRECTORY_CERT_CA_FILE==$HOME/.config/aserto/aserto-one/certs/grpc-ca.crt
 ```
 
 Optionally, you can override these base URL's:
@@ -74,7 +81,7 @@ yarn run build
 
 ### Deploy to Netlify
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aserto-demo/peoplefinder-acmecorp#REACT_APP_POLICY_ROOT=peoplefinder&TENANT_ID=your-Aserto-tenant-ID&POLICY_INSTANCE_NAME=your-Aserto-policy-instance-name&AUTHORIZER_API_KEY=your-Aserto-authorizer-API-key&REACT_APP_NETLIFY=NETLIFY&REACT_APP_DEMO=true&REACT_APP_DEX_DOMAIN=acmecorp.demo.aserto.com&REACT_APP_DEX_CLIENT_ID=acmecorp-app&REACT_APP_DEX_AUDIENCE=acmecorp-app)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aserto-demo/peoplefinder-acmecorp#REACT_APP_POLICY_ROOT=peoplefinder&TENANT_ID=your-Aserto-tenant-ID&POLICY_INSTANCE_NAME=your-Aserto-policy-instance-name&AUTHORIZER_API_KEY=your-Aserto-authorizer-API-key&DIRECTORY_API_KEY=your-Aserto-directory-read-write-API-key&REACT_APP_NETLIFY=NETLIFY&REACT_APP_DEMO=true&REACT_APP_DEX_DOMAIN=acmecorp.demo.aserto.com&REACT_APP_DEX_CLIENT_ID=acmecorp-app&REACT_APP_DEX_AUDIENCE=acmecorp-app)
 
 The project is ready to deploy to Netlify. Just click the "Deploy to Netlify" badge on the repo, or fork the project and set up a Netlify deployment for it.
 
@@ -83,9 +90,9 @@ Note that the API is deployed as a Netlify function.
 Also, in order to run properly, the environment variables found in `.env.example` MUST be set up in the Deployment section in Netlify.
 
 * REACT_APP_POLICY_ROOT={policy root (the first component of the policy module name) - e.g. `peoplefinder`}
-* AUTHORIZER_API_KEY={Your Authorizer API Key (find in the Aserto console in the "Policy settings" section)}
+* POLICY_INSTANCE_NAME={Your Policy name}
 * TENANT_ID={Your Tenant ID (find in the Aserto console in the "Policy settings" section)}
-* POLICY_INSTANCE_NAME={Your Policy name (find in the Aserto console in the "Policy settings" section)}
+* AUTHORIZER_API_KEY={Your Authorizer API Key (find in the Aserto console in the "Policy settings" section)}
 * REACT_APP_NETLIFY=NETLIFY
 * REACT_APP_DEX_AUDIENCE=acmecorp-app
 * REACT_APP_DEX_CLIENT_ID=acmecorp-app

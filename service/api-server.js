@@ -15,11 +15,9 @@ const {
   port,
   authorizerServiceUrl,
   policyRoot,
-  policyInstanceName,
-  domain,
-  audience,
+  instanceName,
   tenantId,
-  authorizerCertFile
+  authorizerCertCAFile
 } = require('./src/config');
 
 const app = express();
@@ -42,14 +40,14 @@ app.use(routerBasePath, router);
 
 // log some config values
 console.log(`Authorizer: ${authorizerServiceUrl}`);
-console.log(`Policy instance name: ${policyInstanceName}`);
+console.log(`Policy instance name: ${instanceName}`);
 console.log(`Policy root: ${policyRoot}`);
 
 if (tenantId) {
   console.log(`Tenant ID: ${tenantId}`);
 }
-if (authorizerCertFile) {
-  console.log(`Authorizer Cert file: ${authorizerCertFile}`);
+if (authorizerCertCAFile) {
+  console.log(`Authorizer Cert file: ${authorizerCertCAFile}`);
 }
 
 // make it work with netlify functions
