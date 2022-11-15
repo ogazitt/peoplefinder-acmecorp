@@ -93,6 +93,7 @@ Also, in order to run properly, the environment variables found in `.env.example
 * POLICY_INSTANCE_NAME={Your Policy name}
 * TENANT_ID={Your Tenant ID (find in the Aserto console in the "Policy settings" section)}
 * AUTHORIZER_API_KEY={Your Authorizer API Key (find in the Aserto console in the "Policy settings" section)}
+* DIRECTORY_API_KEY={Your Directory read/write API Key (find in the Aserto console in the "Connections" section under "Aserto Directory" connection)}
 * REACT_APP_NETLIFY=NETLIFY
 * REACT_APP_DEX_AUDIENCE=acmecorp-app
 * REACT_APP_DEX_CLIENT_ID=acmecorp-app
