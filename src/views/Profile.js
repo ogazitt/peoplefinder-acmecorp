@@ -10,7 +10,7 @@ export const ProfileComponent = () => {
     let user = dexAuth?.userData
 
     if (users && user?.profile?.email) {
-        user = users.find(u => u.email === user.profile.email)
+        user = users.find(u => u.properties.email === user.profile.email)
     }
 
     return (
@@ -18,14 +18,14 @@ export const ProfileComponent = () => {
             <Row className="align-items-center profile-header mb-5 text-center text-md-left">
                 <Col md={2}>
                     <img
-                        src={user.picture}
+                        src={user.properties.picture}
                         alt="Profile"
                         className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
                     />
                 </Col>
                 <Col md>
                     <h2>{user.name}</h2>
-                    <p className="lead text-muted">{user.email}</p>
+                    <p className="lead text-muted">{user.properties.email}</p>
                 </Col>
             </Row>
             <Row>

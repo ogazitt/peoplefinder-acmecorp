@@ -1,14 +1,15 @@
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const { displayStateMap, jwtAuthz, is } = require('express-jwt-aserto');
+const { displayStateMap, jwtAuthz, is } = require('@aserto/aserto-node');
 const directory = require('./directory');
 const {
+  policyRoot,
+  instanceName,
+  instanceLabel,
   authorizerServiceUrl,
   authorizerApiKey,
   tenantId,
-  policyId,
-  authorizerCertFile,
-  policyRoot,
+  authorizerCertCAFile,
   audience,
   jwksUri,
   issuer
@@ -28,7 +29,8 @@ const checkJwt = jwt({
 
 const authzOptions = {
   authorizerServiceUrl,
-  policyId,
+  instanceName,
+  instanceLabel,
   policyRoot,
 };
 if (authorizerApiKey) {
@@ -37,8 +39,8 @@ if (authorizerApiKey) {
 if (tenantId) {
   authzOptions.tenantId = tenantId;
 }
-if (authorizerCertFile) {
-  authzOptions.authorizerCertFile = authorizerCertFile;
+if (authorizerCertCAFile) {
+  authzOptions.authorizerCertCAFile = authorizerCertCAFile;
 }
 
 console.log("authzOptions", authzOptions)
@@ -55,7 +57,7 @@ exports.register = (app) => {
   app.get("/api/users", checkJwt, checkAuthz, async (req, res) => {
     const users = await directory.getUsers(req);
     if (users) {
-      res.status(200).send(users);
+      res.status(200).json(users);
     } else {
       res.status(403).send('something went wrong');
     }

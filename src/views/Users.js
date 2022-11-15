@@ -13,7 +13,7 @@ export const UsersView = () => {
   const [filter, setFilter] = useState('');
   const pageTitle = 'People';
   const displayState = getDisplayState('GET', '/api/users');
-  const userList = (filter && users) ? users.filter(u => u.display_name.toLowerCase().includes(filter)) : users;
+  const userList = (filter && users) ? users.filter(u => u.displayName.toLowerCase().includes(filter)) : users;
 
 
   if (!displayState.visible) {

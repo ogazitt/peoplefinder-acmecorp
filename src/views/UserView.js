@@ -19,7 +19,7 @@ const UserView = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
-  const pageTitle = user ? user.display_name : '';
+  const pageTitle = user ? user.displayName : '';
   const displayState = getDisplayState('GET', '/api/users');
 
   const load = async () => {

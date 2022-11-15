@@ -1,9 +1,10 @@
-require('dotenv').config()
+var env = require('dotenv').config()
+require('dotenv-expand').expand(env)
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const bodyParser = require('body-parser');
 const { join } = require("path");
 
 // establish whether we are hosted in Netlify
@@ -14,11 +15,9 @@ const {
   port,
   authorizerServiceUrl,
   policyRoot,
-  policyId,
-  domain,
-  audience,
+  instanceName,
   tenantId,
-  authorizerCertFile
+  authorizerCertCAFile
 } = require('./src/config');
 
 const app = express();
@@ -30,7 +29,7 @@ app.use(helmet({
   contentSecurityPolicy: false
 }));
 app.use(cors({ origin: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 // register the api handlers
 const users = require('./src/users-api');
@@ -41,14 +40,14 @@ app.use(routerBasePath, router);
 
 // log some config values
 console.log(`Authorizer: ${authorizerServiceUrl}`);
-console.log(`Policy ID: ${policyId}`);
+console.log(`Policy instance name: ${instanceName}`);
 console.log(`Policy root: ${policyRoot}`);
 
 if (tenantId) {
   console.log(`Tenant ID: ${tenantId}`);
 }
-if (authorizerCertFile) {
-  console.log(`Authorizer Cert file: ${authorizerCertFile}`);
+if (authorizerCertCAFile) {
+  console.log(`Authorizer Cert file: ${authorizerCertCAFile}`);
 }
 
 // make it work with netlify functions
