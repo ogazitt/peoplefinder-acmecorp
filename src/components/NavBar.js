@@ -17,9 +17,9 @@ import { useUsers } from '../utils/users'
 
 // hardcode some demo users
 const identities = {
-  'dfdadc39-7335-404d-af66-c77cf13a15f8': 'Euan',
-  'd64b8476-3c5f-4caf-af6f-9a0f1c51d19f': 'Kris',
-  '2bfaa552-d9a5-41e9-a6c3-5be62b4433c8': 'April'
+  'CiRkZmRhZGMzOS03MzM1LTQwNGQtYWY2Ni1jNzdjZjEzYTE1ZjgSBWxvY2Fs': 'Euan',
+  'CiRkNjRiODQ3Ni0zYzVmLTRjYWYtYWY2Zi05YTBmMWM1MWQxOWYSBWxvY2Fs': 'Kris',
+  'CiQyYmZhYTU1Mi1kOWE1LTQxZTktYTZjMy01YmU2MmI0NDMzYzgSBWxvY2Fs': 'April'
 };
 
 const NavBar = () => {
@@ -36,7 +36,7 @@ const NavBar = () => {
   // set the current user by finding it in the user list based on the current identity
   let currentUser = user;
   if (identity && users) {
-    const u = users.find(u => u.id === identity);
+    const u = users.find(u => u.key === identity);
     currentUser = { ...u, name: u.displayName };
   }
 
@@ -50,7 +50,7 @@ const NavBar = () => {
   // look up the user's display name for each of the hardcoded users
   if (users) {
     for (const id of Object.keys(identities)) {
-      const u = users.find(u => u.id === id);
+      const u = users.find(u => u.key === id);
       identities[id] = u && u.displayName;
     }
   }

@@ -69,7 +69,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
       if (identity) {
         headers.identity = identity;
       }
-      const response = await fetch(`${apiOrigin}/api/users/${user.id}`, {
+      const response = await fetch(`${apiOrigin}/api/users/${user.key}`, {
         body: JSON.stringify(body),
         headers,
         method

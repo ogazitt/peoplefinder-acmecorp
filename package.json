@@ -3,9 +3,8 @@
   "version": "0.1.23",
   "private": true,
   "dependencies": {
-    "@aserto/aserto-node": "^0.21.2",
+    "@aserto/aserto-node": "^0.22.0",
     "@aserto/aserto-react": "0.1.52",
-    "@aserto/node-directory": "^0.0.9",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
