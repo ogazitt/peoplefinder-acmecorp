@@ -33,7 +33,7 @@ const UserDetails = withRouter(({ user, setUser, loadUser, history }) => {
 
   // retrieve the manager name
   const managerId = user && user[attrKey] && user[attrKey].manager;
-  const manager = users && managerId && users.find(u => u.id === managerId);
+  const manager = users && managerId && users.find(u => u.key === managerId);
   const managerName = manager && manager.displayName;
 
   useEffect(() => {

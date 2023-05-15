@@ -37,6 +37,10 @@ exports.getUser = async (_req, identity) => {
     }
 
     const user = await directoryClient.object(relation[0].subject);
+    const managerObject = await manager(user.key)
+    const userProps = user.properties.toJson()
+    userProps['manager'] = managerObject.key
+    user.properties.fromJson(userProps)
     return user
   } catch (error) {
     console.error(`getUser: caught exception: ${error}`);
@@ -44,7 +48,7 @@ exports.getUser = async (_req, identity) => {
   }
 }
 
-// // get users
+// get users
 exports.getUsers = async (req) => {
   try {
     let users = []
@@ -65,7 +69,7 @@ exports.getUsers = async (req) => {
   }
 }
 
-// // update a user
+// update a user
 exports.updateUser = async (req, user, payload) => {
   try {
     const response = await directoryClient.setObject(payload)
@@ -80,4 +84,35 @@ exports.updateUser = async (req, user, payload) => {
 exports.deleteUser = async (req, user) => {
   // not implemented
   return null;
+}
+
+
+// get an user's manager
+async function manager ( userKey) {
+  try {
+    const relation = await directoryClient.relation(
+      {
+        subject: {
+          type: 'user',
+          key: userKey,
+        },
+        object: {
+          type: 'user',
+        },
+        relation: {
+          name: 'manager',
+          objectType: 'user'
+        }
+      }
+    )
+    if (!relation || relation.length === 0) {
+      throw new Error(`No relations found for user: ${userKey}`, )
+    }
+
+    const manager = await directoryClient.object(relation[0].object);
+    return manager
+  } catch (error) {
+    console.error(`manager: caught exception: ${error}`);
+    return null;
+  }
 }
