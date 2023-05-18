@@ -80,7 +80,7 @@ exports.updateUser = async (req, user, payload) => {
   }
 }
 
-// // delete a user
+// delete a user
 exports.deleteUser = async (req, user) => {
   // not implemented
   return null;
