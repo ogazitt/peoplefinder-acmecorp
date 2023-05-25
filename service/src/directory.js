@@ -15,26 +15,9 @@ const directoryClient = ds({
 });
 
 // get a user's profile from the management API
-exports.getUser = async (_req, identity) => {
+exports.getUser = async (_req, key) => {
   try {
-    const relation = await directoryClient.relation({
-      subject: {
-        type: "user",
-      },
-      object: {
-        type: "identity",
-        key: identity,
-      },
-      relation: {
-        name: "identifier",
-        objectType: "identity",
-      },
-    });
-    if (!relation || relation.length === 0) {
-      throw new Error(`No relations found for identity ${identity}`);
-    }
-
-    const user = await directoryClient.object(relation[0].subject);
+    const user = await directoryClient.object({type: 'user', key: key});
     const managerObject = await manager(user.key);
     const userProps = user.properties.toJson();
     userProps["manager"] = managerObject.key;
