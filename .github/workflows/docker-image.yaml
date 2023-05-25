@@ -2,17 +2,17 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    tags:
+      - v*
 jobs:
-
-  build:
-
+  push:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag peoplefinder:$(date +%s)
+      - name: Build and push Docker image
+        run: |
+          $TAG=$(echo "${{ github.ref_name }}" | sed 's/v//')
+          docker build . --file Dockerfile --tag ghcr.io/aserto-demo/peoplefinder-acmecorp:$TAG
+          docker push -t ghcr.io/aserto-demo/peoplefinder-acmecorp:$TAG
+
+          

@@ -7,7 +7,7 @@ const configuration = {
   redirectUri: `${window.location.origin}/callback`,
   policyRoot: process.env.REACT_APP_POLICY_ROOT,
   audience: process.env.REACT_APP_DEX_AUDIENCE,
-  apiOrigin: process.env.apiOrigin || `http://localhost:3001`
+  apiOrigin: process.env.REACT_APP_API_ORIGIN || `http://localhost:3001`
 }
 
 if (!process.env.REACT_APP_NETLIFY) {
