@@ -1,4 +1,4 @@
-FROM node:12-alpine as build
+FROM node:16-alpine as build
 
 RUN apk update && apk upgrade && \
   apk add --no-cache bash git openssh yarn
@@ -17,7 +17,7 @@ RUN yarn run build-docker-bundle
 
 # ---------------
 
-FROM node:12-alpine
+FROM node:16-alpine
 
 RUN mkdir -p /app/build
 
@@ -32,10 +32,12 @@ RUN yarn install --production
 ARG CACHEBUST=1
 
 COPY --from=build /app/build ./build
-COPY --from=build /app/src/utils/gateway-ca.crt ./src/utils/gateway-ca.crt
 COPY --from=build /app/.env.docker ./.env
 COPY --from=build /app/client-server.js .
 COPY --from=build /app/service ./service
+COPY --from=build /app/public ./public
+COPY --from=build /app/src ./src
+
 
 EXPOSE 3000
 EXPOSE 3001
