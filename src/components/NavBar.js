@@ -17,9 +17,10 @@ import { useUsers } from '../utils/users'
 
 // hardcode some demo users
 const identities = {
-  'euang@acmecorp.com': 'Euan',
-  'krisj@acmecorp.com': 'Kris',
-  'aprils@acmecorp.com': 'April'
+  'euang@acmecorp.com': 'Euan (viewer)',
+  'aprils@acmecorp.com': 'April (Euan\'s boss)',
+  'eduardd@acmecorp.com': 'Eduard (April\'s boss)',
+  'krisj@acmecorp.com': 'Kris (admin)',
 };
 
 const NavBar = () => {
@@ -36,7 +37,7 @@ const NavBar = () => {
   // set the current user by finding it in the user list based on the current identity
   let currentUser = user;
   if (identity && users) {
-    const u = users.find(u => u.key === identity || u.properties?.email === identity);
+    const u = users.find(u => u.id === identity || u.properties?.email === identity);
     currentUser = { ...u, name: u.displayName };
   }
 
@@ -45,14 +46,6 @@ const NavBar = () => {
   if (users && currentUser?.profile?.email) {
     const u = users.find(u => u.properties.email === currentUser.profile.email)
     currentUser = { ...u, name: u.displayName };
-  }
-
-  // look up the user's display name for each of the hardcoded users
-  if (users) {
-    for (const id of Object.keys(identities)) {
-      const u = users.find(u => u.key === id || u.properties?.email === id);
-      identities[id] = u && u.displayName;
-    }
   }
 
   const logoutWithRedirect = async () => {
